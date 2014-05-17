@@ -28,31 +28,31 @@ import copy
  ###### #        #   # #    # #           
  #    # #    #   #   #  #  #  #           
  #    #  ####    #   #   ##   ######      
-                                          
- ######                                   
- #     #   ##   #####   ##                
- #     #  #  #    #    #  #               
- #     # #    #   #   #    #              
- #     # ######   #   ######              
- #     # #    #   #   #    #              
- ######  #    #   #   #    #              
-                                          
-  #####                                   
- #     # ##### #####  #    #  ####        
- #         #   #    # #    # #    #       
-  #####    #   #    # #    # #            
-       #   #   #####  #    # #            
- #     #   #   #   #  #    # #    #       
-  #####    #   #    #  ####   ####        
-                                          
-                                          
- ##### #    # #####  ######  ####         
-   #   #    # #    # #      #             
-   #   #    # #    # #####   ####         
-   #   #    # #####  #           #        
-   #   #    # #   #  #      #    #        
-   #    ####  #    # ######  ####         
-                                          
+
+ ######
+ #     #   ##   #####   ##
+ #     #  #  #    #    #  #
+ #     # #    #   #   #    #
+ #     # ######   #   ######
+ #     # #    #   #   #    #
+ ######  #    #   #   #    #
+
+  #####      
+ #     # ##### #####  #    #  ####
+ #         #   #    # #    # #    #
+  #####    #   #    # #    # #
+       #   #   #####  #    # #
+ #     #   #   #   #  #    # #    #
+  #####    #   #    #  ####   ####
+
+
+ ##### #    # #####  ######  ####
+   #   #    # #    # #      #
+   #   #    # #    # #####   ####
+   #   #    # #####  #           #
+   #   #    # #   #  #      #    #
+   #    ####  #    # ######  ####
+
 
 
 
@@ -71,15 +71,16 @@ def operate(init, functions):
 
 
 
-  #####                                            
- #     # ###### #    # ###### #####    ##   #      
- #       #      ##   # #      #    #  #  #  #      
- #  #### #####  # #  # #####  #    # #    # #      
- #     # #      #  # # #      #####  ###### #      
- #     # #      #   ## #      #   #  #    # #      
-  #####  ###### #    # ###### #    # #    # ###### 
-                                                                                                                         
-class PartiallyRetroactiveRollback(object):
+ ######                                           ##        ##   
+ #     #   ##   #####  ##### #   ##   #          #    ####    #  
+ #     #  #  #  #    #   #   #  #  #  #         #    #    #    # 
+ ######  #    # #    #   #   # #    # #         #    #         # 
+ #       ###### #####    #   # ###### #         #    #  ###    # 
+ #       #    # #   #    #   # #    # #          #   #    #   #  
+ #       #    # #    #   #   # #    # ######      ##  ####  ##   
+
+
+class PartiallyRetroactive(object):
     """
     Use the rollback method to implement retroactivity. Uses logging;
     stores, as auxiliary information, all changes to the data structure
@@ -89,9 +90,9 @@ class PartiallyRetroactiveRollback(object):
     time, and supports retroactive versions of those operations in O(rT(n))
     time.
     """
-    ## PartiallyRetroactiveRollback<X>
+    ## PartiallyRetroactive<X>
 
-    def __init__(self, initstate, r):
+    def __init__(self, initstate, r=float('inf')):
         """
         Initialize the retroactive datastructure.
         initstate :: X
@@ -110,7 +111,7 @@ class PartiallyRetroactiveRollback(object):
     def query(self):
         return self.currstate
 
-    def insert(self, operation, tminus):
+    def insertAgo(self, operation, tminus=0):
         """
         Insert 'operation' BEFORE the previous 'tminus' operations.
         operation :: X -> X
@@ -118,16 +119,21 @@ class PartiallyRetroactiveRollback(object):
             so long as it RETURNS the output of the modification.
         tminus :: int
         """
-        self.operations.insert(-tminus, operation)
+        if tminus == 0:
+            self.operations.append(operation)
+        else:
+            self.operations.insert(-tminus, operation)
         self._refresh()
 
-    def delete(self, tminus):
+    def deleteAgo(self, tminus=0):
         """
         Delete the operation 'tminus' operations ago.
         tminus :: int
         """
-        assert tminus > 0
-        del self.operations[-tminus]
+        if tminus == 0:
+            del self.operations[len(self.operations)-1]
+        else:
+            del self.operations[-tminus]
         self._refresh()
 
     def _refresh(self):
@@ -145,7 +151,7 @@ class PartiallyRetroactiveRollback(object):
             self.operations = post
 
 
-def testPartiallyRetroactiveRollback():
+def testPartiallyRetroactive():
     def appendSix(lst):
         return lst + [6]
     def appendTen(lst):
@@ -153,23 +159,23 @@ def testPartiallyRetroactiveRollback():
     def deleteFirst(lst):
         del lst[0]
         return lst
-    x = PartiallyRetroactiveRollback([1,2,3], 10)
+    x = PartiallyRetroactive([1,2,3], 10)
     x.query()
-    x.insert(appendSix, 0)
-    x.insert(appendSix, 0)
+    x.insertAgo(appendSix, 0)
+    x.insertAgo(appendSix, 0)
     x.query()
-    x.insert(appendTen, 2)
+    x.insertAgo(appendTen, 2)
     x.query()
-    x.insert(deleteFirst, 1)
+    x.insertAgo(deleteFirst, 1)
     x.query()
-    x.delete(2)
+    x.deleteAgo(2)
     x.query()
 
     def setKeyValue(k,v):
         def out(dic):
             dic[k] = v
             return dic
-    x = PartiallyRetroactiveRollback({}, 10)
+    x = PartiallyRetroactive({}, 10)
     x.query()
 
 
@@ -179,35 +185,81 @@ def testPartiallyRetroactiveRollback():
 
 
 
-  #####                              ###               
- #     #  ####  #    # #    #         #  #    # #    # 
- #       #    # ##  ## ##  ##         #  ##   # #    # 
- #       #    # # ## # # ## #         #  # #  # #    # 
- #       #    # #    # #    # ###     #  #  # # #    # 
- #     # #    # #    # #    # ###     #  #   ##  #  #  
-  #####   ####  #    # #    #  #     ### #    #   ##   
-                              #                        
-class PartiallyRetroactiveCommutativeInvertible(object):
-    def __init__(self, state):
-        self.state = state
-    def apply(self, operation):
-        self.state = operation(self.state)
-    def query(self):
-        return self.state
-    ## This fun is done
+ #######                                 ##        ##   
+ #       #    # #      #      #   #     #    ####    #  
+ #       #    # #      #       # #     #    #    #    # 
+ #####   #    # #      #        #      #    #         # 
+ #       #    # #      #        #      #    #  ###    # 
+ #       #    # #      #        #       #   #    #   #  
+ #        ####  ###### ######   #        ##  ####  ##   
 
 
-def testPartiallyRetroactiveCommutativeInvertible():
-    def addSix(s):
-        return s + 6
-    def delSix(s):
-        return s - 6
-    x = PartiallyRetroactiveCommutativeInvertible(123)
-    x.query()
-    x.apply(addSix)
-    x.query()
-    x.apply(delSix)
-    x.query()
+class FullyRetroactive(object):
+    """
+    Implements full retroactivity for a generic data structure.
+
+    Does this by storing a sequence of versions of *partially* retroactive data structures, plus some logging for the operations in between two such data structures in sequence.
+
+    m :: the total number of retroactive updates that have been performed so far.
+
+    timeline :: a list of many items. Each item is either a PartiallyRetroactive object or an operation.
+
+    states :: a list of pointers to only the PartiallyRetroactive objects, above.
+    """
+    ## FullyRetroactive<X>
+
+    def __init__(self, initstate):
+        self.m = 0
+        state = PartiallyRetroactive(initstate)
+        self.timeline = [state]
+        self.states = [state]
+
+    def insertAgo(self, operation, tminus=0):
+        pass
+
+    def deleteAgo(self, tminus=0):
+        pass
+
+    def query(self, tminus=0):
+        pass
+
+    ## I'mma come back to this. It's going to be hard to do it the right
+    ## way -- for that, we need persistent data structures. Alternative
+    ## is just to do it the lazy way. For that, you'll want to copy the code
+    ## from PartiallyRetroactive and just insert back-in-time querying.
+
+
+
+
+#   #####                              ###               
+#  #     #  ####  #    # #    #         #  #    # #    # 
+#  #       #    # ##  ## ##  ##         #  ##   # #    # 
+#  #       #    # # ## # # ## #         #  # #  # #    # 
+#  #       #    # #    # #    # ###     #  #  # # #    # 
+#  #     # #    # #    # #    # ###     #  #   ##  #  #  
+#   #####   ####  #    # #    #  #     ### #    #   ##   
+#                               #                        
+# class PartiallyRetroactiveCommutativeInvertible(object):
+#     def __init__(self, state):
+#         self.state = state
+#     def apply(self, operation):
+#         self.state = operation(self.state)
+#     def query(self):
+#         return self.state
+#     ## This fun is done
+
+
+# def testPartiallyRetroactiveCommutativeInvertible():
+#     def addSix(s):
+#         return s + 6
+#     def delSix(s):
+#         return s - 6
+#     x = PartiallyRetroactiveCommutativeInvertible(123)
+#     x.query()
+#     x.apply(addSix)
+#     x.query()
+#     x.apply(delSix)
+#     x.query()
 
 
 
@@ -228,6 +280,19 @@ class PartiallyRetroactiveDictionary(object):
     ## Rephrase it as a searching problem!
     ## pg 11 of TALG
     pass
+
+
+
+
+
+
+ ######      #####  ######  ######   #####  
+ #     #    #     # #     # #     # #     # 
+ #     #    #       #     # #     # #       
+ ######      #####  #     # ######   #####  
+ #                # #     # #             # 
+ #          #     # #     # #       #     # 
+ #           #####  ######  #        #####  
 
 #TODO
 class SearchableDynamicPartialSums(object):
@@ -250,6 +315,27 @@ class PartiallyRetroactiveSearchableDynamicPartialSums(object):
         pass
 
 
+
+
+class Queue(object):
+    def __init__(self, initstate=[]):
+        self.list = initstate
+    def front(self):
+        if len(self.list) > 0:
+            return self.list[0]
+        else:
+            return None
+    def back(self):
+        if len(self.list) > 0:
+            return self.list[-1]
+        else:
+            return None
+    def enqueue(self, val):
+        self.list.append(val)
+    def dequeue(self):
+        return self.list.pop()
+    def __str__(self):
+        return self.list
 
 
  ######      #####                              
@@ -404,23 +490,7 @@ def testPartiallyRetroactiveQueue():
 
 
 
- #######     #####                              
- #          #     # #    # ###### #    # ###### 
- #          #     # #    # #      #    # #      
- #####      #     # #    # #####  #    # #####  
- #          #   # # #    # #      #    # #      
- #          #    #  #    # #      #    # #      
- #           #### #  ####  ######  ####  ###### 
-                                                                                                                                 
-class FullyRetroactiveQueue(object):
-    pass
 
-
-
-
-
-
-                                    
  ######                              
  #     # ######  ####  #    # ###### 
  #     # #      #    # #    # #      
@@ -510,6 +580,31 @@ class FullyRetroactivePriorityQueue(object):
                                                                                                               
 class FullyRetroactiveReadonlyArray(object):
     pass
+
+
+
+
+
+
+
+
+
+
+
+
+ ######                            #######                            
+ #     #   ##    ####  #  ####        #    #   # #####  ######  ####  
+ #     #  #  #  #      # #    #       #     # #  #    # #      #      
+ ######  #    #  ####  # #            #      #   #    # #####   ####  
+ #     # ######      # # #            #      #   #####  #           # 
+ #     # #    # #    # # #    #       #      #   #      #      #    # 
+ ######  #    #  ####  #  ####        #      #   #      ######  ####  
+
+
+
+
+
+
 
 
 
