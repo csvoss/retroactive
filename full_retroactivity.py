@@ -72,6 +72,18 @@ class FullyRetroactive(object):
 
 
 
+  #####                              
+ #     # #    # ###### #    # ###### 
+ #     # #    # #      #    # #      
+ #     # #    # #####  #    # #####  
+ #   # # #    # #      #    # #      
+ #    #  #    # #      #    # #      
+  #### #  ####  ######  ####  ###### 
+
+class FullyRetroactiveQueue(object):
+    ## Requires an implementation of order-statistic trees.
+    pass
+
 
  ######                              
  #     # ######  ####  #    # ###### 
@@ -82,30 +94,9 @@ class FullyRetroactive(object):
  ######  ######  ### #  ####  ###### 
                                                                        
 class RetroactiveDeque(object):
+    ## Requires an implementation of modified (a,b)-tree of Fleischer.
     pass
 
-
-
-
-
-  #####                             
- #     # #####   ##    ####  #    # 
- #         #    #  #  #    # #   #  
-  #####    #   #    # #      ####   
-       #   #   ###### #      #  #   
- #     #   #   #    # #    # #   #  
-  #####    #   #    #  ####  #    # 
-                                           
-class RetroactiveStack(object):
-    pass
-
-
-
-
-
-
-
-                                                      
  #     #                        #######                 
  #     # #    # #  ####  #    # #       # #    # #####  
  #     # ##   # # #    # ##   # #       # ##   # #    # 
@@ -115,26 +106,8 @@ class RetroactiveStack(object):
   #####  #    # #  ####  #    # #       # #    # #####  
                                                                                                     
 class RetroactiveUnionFind(object):
+    ## Requires an implementation of link-cut trees.
     pass
-
-
-
-
-
-
-######                                        #####  
-#     # #####  #  ####  #####  # ##### #   # #     # 
-#     # #    # # #    # #    # #   #    # #  #     # 
-######  #    # # #    # #    # #   #     #   #     # 
-#       #####  # #    # #####  #   #     #   #   # # 
-#       #   #  # #    # #   #  #   #     #   #    #  
-#       #    # #  ####  #    # #   #     #    #### # 
-                                                                 
-class FullyRetroactivePriorityQueue(object):
-
-    ## Requires an implementation of order-statistic trees.
-    pass
-
 
 
 

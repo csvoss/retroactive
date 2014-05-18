@@ -1,5 +1,9 @@
 
 
+    ## Requires an implementation of order-statistic trees.
+    ## Requires an implementation of modified (a,b)-tree of Fleischer.
+    ## Requires an implementation of link-cut trees.
+    ## need an implementation of persistence.
 
 
 

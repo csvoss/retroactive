@@ -18,3 +18,6 @@ def compose(f, g):
 
 def operate(init, functions):
         return reduce(compose, functions, lambda starter: init)("starter")
+
+
+
