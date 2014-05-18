@@ -117,20 +117,6 @@ class FullyRetroactivePriorityQueue(object):
 
 
 
-
-  #####                              
- #     # #    # ###### #    # ###### 
- #     # #    # #      #    # #      
- #     # #    # #####  #    # #####  
- #   # # #    # #      #    # #      
- #    #  #    # #      #    # #      
-  #### #  ####  ######  ####  ###### 
-
-class FullyRetroactiveQueue(object):
-    ## Requires an implementation of order-statistic trees.
-    pass
-
-
  ######                              
  #     # ######  ####  #    # ###### 
  #     # #      #    # #    # #      

@@ -1,14 +1,10 @@
+## Requires an implementation of modified (a,b)-tree of Fleischer.
 
 
-    ## Requires an implementation of order-statistic trees.
-    ## Requires an implementation of modified (a,b)-tree of Fleischer.
-    ## Requires an implementation of link-cut trees.
-    ## need an implementation of persistence.
+## Requires an implementation of link-cut trees.
 
 
-
-## Doubly-linked list implementations
-                
+## Doubly-linked list implementation
 class DLLNodeForPRQ(object):
     def __init__(self, prev, next, val=None):
         self.prev = prev
@@ -16,20 +12,15 @@ class DLLNodeForPRQ(object):
         self.val = val
         self.isBeforeF = False
 
+class DLLNodeForPRPQ(object):
+    def __init__(self, prev, next, val=None):
+        self.prev = prev
+        self.next = next
+        self.val = val
 
-
-
- ######   #####  ####### 
- #     # #     #    #    
- #     # #          #    
- ######   #####     #    
- #     #       #    #    
- #     # #     #    #    
- ######   #####     #    
-                         
 
 ## BST implementation
-## from https://github.com/laurentluce/python-algorithms/blob/master/algorithms/binary_tree.py
+## Modified from: http://github.com/laurentluce/python-algorithms/blob/master/algorithms/binary_tree.py
 class Node:
     def __init__(self, data):
         self.left = None
