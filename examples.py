@@ -24,9 +24,6 @@ def testPartiallyRetroactive():
     x.query()
 
 
-
-
-
 def testPartiallyRetroactiveQueue():
     x = PartiallyRetroactiveQueue()
     ## INSERT the enqueueing of some things
@@ -52,5 +49,18 @@ def testPartiallyRetroactiveQueue():
     print x
 
 
-
-
+def testPartiallyRetroactiveSDPS():
+    x = PartiallyRetroactiveSDPS([1,2,3,4,5])
+    x.sums
+    x.state
+    x.insert(x.update(2,7))
+    x.sums
+    x.state
+    x.delete(x.update(2,7))
+    x.delete(x.update(2,7))
+    x.sums
+    x.state
+    x.sum(3)
+    x.search(0)
+    x.search(1)
+    x.search(2)

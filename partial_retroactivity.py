@@ -4,13 +4,13 @@ from utils import *
 
 
 
- ######                                           ##        ##   
- #     #   ##   #####  ##### #   ##   #          #    ####    #  
- #     #  #  #  #    #   #   #  #  #  #         #    #    #    # 
- ######  #    # #    #   #   # #    # #         #    #         # 
- #       ###### #####    #   # ###### #         #    #  ###    # 
- #       #    # #   #    #   # #    # #          #   #    #   #  
- #       #    # #    #   #   # #    # ######      ##  ####  ##   
+  #####                                            
+ #     # ###### #    # ###### #####    ##   #      
+ #       #      ##   # #      #    #  #  #  #      
+ #  #### #####  # #  # #####  #    # #    # #      
+ #     # #      #  # # #      #####  ###### #      
+ #     # #      #   ## #      #   #  #    # #      
+  #####  ###### #    # ###### #    # #    # ###### 
 
 
 class PartiallyRetroactive(object):
@@ -93,69 +93,91 @@ class PartiallyRetroactive(object):
 
 
 
- ######     ######                                            
- #     #    #     # #  ####  ##### #    #   ##   #####  #   # 
- #     #    #     # # #    #   #   ##   #  #  #  #    #  # #  
- ######     #     # # #        #   # #  # #    # #    #   #   
- #          #     # # #        #   #  # # ###### #####    #   
- #          #     # # #    #   #   #   ## #    # #   #    #   
- #          ######  #  ####    #   #    # #    # #    #   #   
+######                                            
+#     # #  ####  ##### #    #   ##   #####  #   # 
+#     # # #    #   #   ##   #  #  #  #    #  # #  
+#     # # #        #   # #  # #    # #    #   #   
+#     # # #        #   #  # # ###### #####    #   
+#     # # #    #   #   #   ## #    # #   #    #   
+######  #  ####    #   #    # #    # #    #   #   
 
 #TODO                                              
 class PartiallyRetroactiveDictionary(object):
     ## Rephrase it as a searching problem!
     ## pg 11 of TALG
+    
+    ## Requires segment tree implementation.
+
+    ## Also, it is unclear to me how a dictionary can be represented
+    ## as a decomposable search problem...
+
+
     pass
 
 
 
 
 
- ######      #####  ######  ######   #####  
- #     #    #     # #     # #     # #     # 
- #     #    #       #     # #     # #       
- ######      #####  #     # ######   #####  
- #                # #     # #             # 
- #          #     # #     # #       #     # 
- #           #####  ######  #        #####  
+ #####  ######  ######   #####  
+#     # #     # #     # #     # 
+#       #     # #     # #       
+ #####  #     # ######   #####  
+      # #     # #             # 
+#     # #     # #       #     # 
+ #####  ######  #        #####  
 
-#TODO
-class SearchableDynamicPartialSums(object):
-    def __init__(self, state):
-        pass
-    def sum(self, i):
-        pass
-    def search(self, j):
-        pass
-    def update(self, i, c):
-        pass
 
-#TODO
-class PartiallyRetroactiveSearchableDynamicPartialSums(object):
-    def __init__(self, state):
+## SearchableDynamicPartialSums
+
+class PartiallyRetroactiveSDPS(object):
+    def __init__(self, state=[]):
         self.state = state
+        self.sums = [sum(state[:i]) for i in range(len(state))]
+    
+    def update(self, i, c):
+        def return_update(x):
+            x.state[i] += c
+            for j in range(i,len(x.state)):
+                x.sums[j] += c
+            return x
+        return_update.c = c
+        return_update.i = i
+        return return_update
+
     def insert(self, operation):
-        pass
+        assert operation.__name__ == 'return_update'
+        self = operation(self)
+    
     def delete(self, operation):
-        pass
+        assert operation.__name__ == 'return_update'
+        inverse_operation = self.update(operation.i, -operation.c)
+        assert inverse_operation.__name__ == 'return_update'
+        self = inverse_operation(self)
+
+    def sum(self, i):
+        """
+        Returns the sum of the first i elements of the array.
+        """
+        return self.sums[i]
+
+    def search(self, j):
+        """
+        Returns the SMALLEST i such that sum(i) >= j.
+        """
+        for i in range(len(self.sums)):
+            if self.sum(i) >= j:
+                return i
 
 
 
 
-
-
-
-
-
-
-
- ######     ######                                        #####  
- #     #    #     # #####  #  ####  #####  # ##### #   # #     # 
- #     #    #     # #    # # #    # #    # #   #    # #  #     # 
- ######     ######  #    # # #    # #    # #   #     #   #     # 
- #          #       #####  # #    # #####  #   #     #   #   # # 
- #          #       #   #  # #    # #   #  #   #     #   #    #  
- #          #       #    # #  ####  #    # #   #     #    #### # 
+######                                        #####  
+#     # #####  #  ####  #####  # ##### #   # #     # 
+#     # #    # # #    # #    # #   #    # #  #     # 
+######  #    # # #    # #    # #   #     #   #     # 
+#       #####  # #    # #####  #   #     #   #   # # 
+#       #   #  # #    # #   #  #   #     #   #    #  
+#       #    # #  ####  #    # #   #     #    #### # 
                                                                                                                                  
 class PartiallyRetroactivePriorityQueue(object):
     pass
@@ -188,15 +210,15 @@ class Queue(object):
         return self.list.pop()
     def __str__(self):
         return self.list
-        
 
- ######      #####                              
- #     #    #     # #    # ###### #    # ###### 
- #     #    #     # #    # #      #    # #      
- ######     #     # #    # #####  #    # #####  
- #          #   # # #    # #      #    # #      
- #          #    #  #    # #      #    # #      
- #           #### #  ####  ######  ####  ###### 
+
+ #####                              
+#     # #    # ###### #    # ###### 
+#     # #    # #      #    # #      
+#     # #    # #####  #    # #####  
+#   # # #    # #      #    # #      
+#    #  #    # #      #    # #      
+ #### #  ####  ######  ####  ###### 
                                                 
 class DLLNodeForPRQ(object):
     def __init__(self, prev, next, val=None):
