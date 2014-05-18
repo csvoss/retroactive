@@ -7,6 +7,18 @@
 
 
 
+## Doubly-linked list implementations
+                
+class DLLNodeForPRQ(object):
+    def __init__(self, prev, next, val=None):
+        self.prev = prev
+        self.next = next
+        self.val = val
+        self.isBeforeF = False
+
+
+
+
  ######   #####  ####### 
  #     # #     #    #    
  #     # #          #    

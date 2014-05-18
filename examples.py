@@ -3,8 +3,8 @@ from full_retroactivity import *
 from partial_retroactivity import *
 
 
-def testPartiallyRetroactive():
-    x = PartiallyRetroactive([1,2,3], 10)
+def testGeneralPartiallyRetroactive():
+    x = GeneralPartiallyRetroactive([1,2,3], 10)
     x.query()
     x.insertAgo(appendSix, 0)
     x.insertAgo(appendSix, 0)
@@ -14,13 +14,6 @@ def testPartiallyRetroactive():
     x.insertAgo(deleteFirst, 1)
     x.query()
     x.deleteAgo(2)
-    x.query()
-
-    def setKeyValue(k,v):
-        def out(dic):
-            dic[k] = v
-            return dic
-    x = PartiallyRetroactive({}, 10)
     x.query()
 
 
@@ -53,11 +46,11 @@ def testPartiallyRetroactiveSDPS():
     x = PartiallyRetroactiveSDPS([1,2,3,4,5])
     x.sums
     x.state
-    x.insert(x.update(2,7))
+    x.insert(lambda i: i.update(2,7))
     x.sums
     x.state
-    x.delete(x.update(2,7))
-    x.delete(x.update(2,7))
+    x.delete(lambda i: i.update(2,7))
+    x.delete(lambda i: i.update(2,7))
     x.sums
     x.state
     x.sum(3)

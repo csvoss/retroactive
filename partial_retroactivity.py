@@ -1,5 +1,9 @@
 import copy
 from utils import *
+from basic import DLLNodeForPRQ
+
+
+
 
 
 
@@ -13,7 +17,7 @@ from utils import *
   #####  ###### #    # ###### #    # #    # ###### 
 
 
-class PartiallyRetroactive(object):
+class GeneralPartiallyRetroactive(object):
     """
     Use the rollback method to implement retroactivity. Uses logging;
     stores, as auxiliary information, all changes to the data structure
@@ -23,7 +27,7 @@ class PartiallyRetroactive(object):
     time, and supports retroactive versions of those operations in O(rT(n))
     time.
     """
-    ## PartiallyRetroactive<X>
+    ## GeneralPartiallyRetroactive<X>
 
     def __init__(self, initstate, r=float('inf')):
         """
@@ -93,30 +97,6 @@ class PartiallyRetroactive(object):
 
 
 
-######                                            
-#     # #  ####  ##### #    #   ##   #####  #   # 
-#     # # #    #   #   ##   #  #  #  #    #  # #  
-#     # # #        #   # #  # #    # #    #   #   
-#     # # #        #   #  # # ###### #####    #   
-#     # # #    #   #   #   ## #    # #   #    #   
-######  #  ####    #   #    # #    # #    #   #   
-
-#TODO                                              
-class PartiallyRetroactiveDictionary(object):
-    ## Rephrase it as a searching problem!
-    ## pg 11 of TALG
-    
-    ## Requires segment tree implementation.
-
-    ## Also, it is unclear to me how a dictionary can be represented
-    ## as a decomposable search problem...
-
-
-    pass
-
-
-
-
 
  #####  ######  ######   #####  
 #     # #     # #     # #     # 
@@ -145,10 +125,20 @@ class PartiallyRetroactiveSDPS(object):
         return return_update
 
     def insert(self, operation):
+        """
+        operation ::
+            e.g. lambda q: q.update(3, 555)
+        """
+        operation = operation(self)
         assert operation.__name__ == 'return_update'
         self = operation(self)
     
     def delete(self, operation):
+        """
+        operation ::
+            e.g. lambda q: q.update(3, 555)
+        """
+        operation = operation(self)
         assert operation.__name__ == 'return_update'
         inverse_operation = self.update(operation.i, -operation.c)
         assert inverse_operation.__name__ == 'return_update'
@@ -167,24 +157,6 @@ class PartiallyRetroactiveSDPS(object):
         for i in range(len(self.sums)):
             if self.sum(i) >= j:
                 return i
-
-
-
-
-######                                        #####  
-#     # #####  #  ####  #####  # ##### #   # #     # 
-#     # #    # # #    # #    # #   #    # #  #     # 
-######  #    # # #    # #    # #   #     #   #     # 
-#       #####  # #    # #####  #   #     #   #   # # 
-#       #   #  # #    # #   #  #   #     #   #    #  
-#       #    # #  ####  #    # #   #     #    #### # 
-                                                                                                                                 
-class PartiallyRetroactivePriorityQueue(object):
-    pass
-
-
-
-
 
 
 
@@ -219,13 +191,7 @@ class Queue(object):
 #   # # #    # #      #    # #      
 #    #  #    # #      #    # #      
  #### #  ####  ######  ####  ###### 
-                                                
-class DLLNodeForPRQ(object):
-    def __init__(self, prev, next, val=None):
-        self.prev = prev
-        self.next = next
-        self.val = val
-        self.isBeforeF = False
+
 
 class PartiallyRetroactiveQueue(object):
     def __init__(self):
@@ -333,4 +299,52 @@ class PartiallyRetroactiveQueue(object):
                 break
             ptr = ptr.prev
         return "Front=%s, Back=%s, State=%s"%(self.front(), self.back(), str(out))
+
+
+
+
+
+
+
+
+
+                                                                 
+ # #    #  ####   ####  #    # #####  #      ###### ##### ###### 
+ # ##   # #    # #    # ##  ## #    # #      #        #   #      
+ # # #  # #      #    # # ## # #    # #      #####    #   #####  
+ # #  # # #      #    # #    # #####  #      #        #   #      
+ # #   ## #    # #    # #    # #      #      #        #   #      
+ # #    #  ####   ####  #    # #      ###### ######   #   ###### 
+                                                                 
+
+
+
+
+
+
+
+
+
+
+
+
+######                                        #####  
+#     # #####  #  ####  #####  # ##### #   # #     # 
+#     # #    # # #    # #    # #   #    # #  #     # 
+######  #    # # #    # #    # #   #     #   #     # 
+#       #####  # #    # #####  #   #     #   #   # # 
+#       #   #  # #    # #   #  #   #     #   #    #  
+#       #    # #  ####  #    # #   #     #    #### # 
+                                                                                                                                 
+class PartiallyRetroactivePriorityQueue(object):
+    pass
+
+
+
+
+
+
+
+
+
 

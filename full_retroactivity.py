@@ -1,6 +1,7 @@
 import copy
 from utils import *
-from partial_retroactivity import PartiallyRetroactive
+from partial_retroactivity import GeneralPartiallyRetroactive
+from partial_retroactivity import PartiallyRetroactivePriorityQueue
 
 
 
@@ -16,7 +17,7 @@ from partial_retroactivity import PartiallyRetroactive
 
 
 
-class FullyRetroactive(object):
+class GeneralFullyRetroactive(object):
     """
     Implements full retroactivity for a generic data structure.
 
@@ -30,11 +31,11 @@ class FullyRetroactive(object):
     timeline :: a list of PartiallyRetroactive objects.
     timeline[0] --> the MOST recent PartiallyRetroactive object.
     """
-    ## FullyRetroactive<X>
+    ## GeneralFullyRetroactive<X>
 
-    def __init__(self, initstate):
+    def __init__(self, initstate, partiallyretro=GeneralPartiallyRetroactive):
         self.m = 0
-        state = PartiallyRetroactive(initstate)
+        state = GeneralPartiallyRetroactive(initstate)
         self.timeline = [state]
 
     def insertAgo(self, operation, tminus=0):
@@ -66,6 +67,51 @@ class FullyRetroactive(object):
 
     def __str__(self):
         return str([str(foo) for foo in self.timeline])
+
+
+
+
+
+
+######                                        #####  
+#     # #####  #  ####  #####  # ##### #   # #     # 
+#     # #    # # #    # #    # #   #    # #  #     # 
+######  #    # # #    # #    # #   #     #   #     # 
+#       #####  # #    # #####  #   #     #   #   # # 
+#       #   #  # #    # #   #  #   #     #   #    #  
+#       #    # #  ####  #    # #   #     #    #### # 
+
+class FullyRetroactivePriorityQueue(object):
+    def __init__(self, initstate):
+        return GeneralFullyRetroactive(initstate, partiallyretro=PartiallyRetroactivePriorityQueue)
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                 
+ # #    #  ####   ####  #    # #####  #      ###### ##### ###### 
+ # ##   # #    # #    # ##  ## #    # #      #        #   #      
+ # # #  # #      #    # # ## # #    # #      #####    #   #####  
+ # #  # # #      #    # #    # #####  #      #        #   #      
+ # #   ## #    # #    # #    # #      #      #        #   #      
+ # #    #  ####   ####  #    # #      ###### ######   #   ###### 
+                                                                 
+
+
+
+
+
+
+
+
 
 
 
@@ -108,27 +154,6 @@ class RetroactiveDeque(object):
 class RetroactiveUnionFind(object):
     ## Requires an implementation of link-cut trees.
     pass
-
-
-
-
-
-
-   #                               
-  # #   #####  #####    ##   #   # 
- #   #  #    # #    #  #  #   # #  
-#     # #    # #    # #    #   #   
-####### #####  #####  ######   #   
-#     # #   #  #   #  #    #   #   
-#     # #    # #    # #    #   #   
-                                                                                                              
-class FullyRetroactiveReadonlyArray(object):
-    pass
-
-
-
-
-
 
 
 
