@@ -3,6 +3,8 @@ import copy
 
 def appendSix(lst):
     return lst + [6]
+def appendOne(lst):
+    return lst + [1]
 def appendTen(lst):
     return lst + [10]
 def deleteFirst(lst):
