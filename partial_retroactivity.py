@@ -315,7 +315,7 @@ class PartiallyRetroactivePriorityQueue(object):
         """
 
         self.history = None ##doubly linked list
-        self.Qnow = ##NEW BST
+        self.Qnow ## = a new BST
             #associating with each key a pointer to its insert operation in the linked list (history)
 
 
