@@ -15,8 +15,6 @@ from partial_retroactivity import PartiallyRetroactivePriorityQueue
  #     # #      #   ## #      #   #  #    # #      
   #####  ###### #    # ###### #    # #    # ###### 
 
-
-
 class GeneralFullyRetroactive(object):
     """
     Implements full retroactivity for a generic data structure.
@@ -82,10 +80,13 @@ class GeneralFullyRetroactive(object):
 #       #    # #  ####  #    # #   #     #    #### # 
 
 class FullyRetroactivePriorityQueue(object):
-    ## Requires an implementation of modified (a,b)-tree of Fleischer.
-    ## TODO.
+
+    ## Uses the general transformation to create a fully-retroactive
+    ## priority queue, based on the partially-retroactive one.
+    
     def __init__(self, initstate):
         return GeneralFullyRetroactive(initstate, partiallyretro=PartiallyRetroactivePriorityQueue)
+
 
  ######                              
  #     # ######  ####  #    # ###### 
@@ -100,6 +101,7 @@ class RetroactiveDeque(object):
     ## TODO.
     pass
 
+
  #     #                        #######                 
  #     # #    # #  ####  #    # #       # #    # #####  
  #     # ##   # # #    # ##   # #       # ##   # #    # 
@@ -112,6 +114,3 @@ class RetroactiveUnionFind(object):
     ## Requires an implementation of link-cut trees.
     ## TODO.
     pass
-
-
-

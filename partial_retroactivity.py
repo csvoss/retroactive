@@ -14,7 +14,6 @@ from basic import DLLNodeForPRPQ
  #     # #      #   ## #      #   #  #    # #      
   #####  ###### #    # ###### #    # #    # ###### 
 
-
 class GeneralPartiallyRetroactive(object):
     """
     Use the rollback method to implement retroactivity. Uses logging;
@@ -94,8 +93,6 @@ class GeneralPartiallyRetroactive(object):
 
 
 
-
-
  #####  ######  ######   #####  
 #     # #     # #     # #     # 
 #       #     # #     # #       
@@ -104,8 +101,7 @@ class GeneralPartiallyRetroactive(object):
 #     # #     # #       #     # 
  #####  ######  #        #####  
 
-
-## SearchableDynamicPartialSums
+## (SearchableDynamicPartialSums)
 
 class PartiallyRetroactiveSDPS(object):
     def __init__(self, state=[]):
@@ -159,7 +155,7 @@ class PartiallyRetroactiveSDPS(object):
 
 
 
-
+## Simple, non-retroactive Queue implementation.
 
 class Queue(object):
     def __init__(self, initstate=[]):
@@ -189,7 +185,6 @@ class Queue(object):
 #   # # #    # #      #    # #      
 #    #  #    # #      #    # #      
  #### #  ####  ######  ####  ###### 
-
 
 class PartiallyRetroactiveQueue(object):
     def __init__(self):
@@ -312,6 +307,7 @@ class PartiallyRetroactiveQueue(object):
 class PartiallyRetroactivePriorityQueue(object):
 
     ## TODO.
+    ## Requires an implementation of modified (a,b)-tree of Fleischer.
 
     def __init__(self, initstate):
         """

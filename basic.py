@@ -1,6 +1,8 @@
+## TODO
 ## Requires an implementation of modified (a,b)-tree of Fleischer.
 
 
+## TODO
 ## Requires an implementation of link-cut trees.
 
 
@@ -21,7 +23,7 @@ class DLLNodeForPRPQ(object):
 
 ## BST implementation
 ## Modified from: http://github.com/laurentluce/python-algorithms/blob/master/algorithms/binary_tree.py
-class Node:
+class BSTNode:
     def __init__(self, data):
         self.left = None
         self.right = None
@@ -30,12 +32,12 @@ class Node:
     def insert(self, data):
         if data < self.data:
             if self.left is None:
-                self.left = Node(data)
+                self.left = BSTNode(data)
             else:
                 self.left.insert(data)
         else:
             if self.right is None:
-                self.right = Node(data)
+                self.right = BSTNode(data)
             else:
                 self.right.insert(data)
 
