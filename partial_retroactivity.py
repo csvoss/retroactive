@@ -6,9 +6,6 @@ from basic import DLLNodeForPRPQ
 
 
 
-
-
-
   #####                                            
  #     # ###### #    # ###### #####    ##   #      
  #       #      ##   # #      #    #  #  #  #      
@@ -304,31 +301,6 @@ class PartiallyRetroactiveQueue(object):
 
 
 
-
-
-
-
-
-                                                                 
- # #    #  ####   ####  #    # #####  #      ###### ##### ###### 
- # ##   # #    # #    # ##  ## #    # #      #        #   #      
- # # #  # #      #    # # ## # #    # #      #####    #   #####  
- # #  # # #      #    # #    # #####  #      #        #   #      
- # #   ## #    # #    # #    # #      #      #        #   #      
- # #    #  ####   ####  #    # #      ###### ######   #   ###### 
-                                                                 
-
-
-
-
-
-
-
-
-
-
-
-
 ######                                        #####  
 #     # #####  #  ####  #####  # ##### #   # #     # 
 #     # #    # # #    # #    # #   #    # #  #     # 
@@ -338,6 +310,9 @@ class PartiallyRetroactiveQueue(object):
 #       #    # #  ####  #    # #   #     #    #### # 
                                                                                                                                  
 class PartiallyRetroactivePriorityQueue(object):
+
+    ## TODO.
+
     def __init__(self, initstate):
         """
         initstate :: a list of comparable items, initially in the priority queue

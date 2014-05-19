@@ -82,40 +82,10 @@ class GeneralFullyRetroactive(object):
 #       #    # #  ####  #    # #   #     #    #### # 
 
 class FullyRetroactivePriorityQueue(object):
+    ## Requires an implementation of modified (a,b)-tree of Fleischer.
+    ## TODO.
     def __init__(self, initstate):
         return GeneralFullyRetroactive(initstate, partiallyretro=PartiallyRetroactivePriorityQueue)
-
-
-
-
-
-
-
-
-
-
-
-
-                                                                 
- # #    #  ####   ####  #    # #####  #      ###### ##### ###### 
- # ##   # #    # #    # ##  ## #    # #      #        #   #      
- # # #  # #      #    # # ## # #    # #      #####    #   #####  
- # #  # # #      #    # #    # #####  #      #        #   #      
- # #   ## #    # #    # #    # #      #      #        #   #      
- # #    #  ####   ####  #    # #      ###### ######   #   ###### 
-                                                                 
-
-
-
-
-
-
-
-
-
-
-
-
 
  ######                              
  #     # ######  ####  #    # ###### 
@@ -127,6 +97,7 @@ class FullyRetroactivePriorityQueue(object):
                                                                        
 class RetroactiveDeque(object):
     ## Requires an implementation of modified (a,b)-tree of Fleischer.
+    ## TODO.
     pass
 
  #     #                        #######                 
@@ -139,6 +110,7 @@ class RetroactiveDeque(object):
                                                                                                     
 class RetroactiveUnionFind(object):
     ## Requires an implementation of link-cut trees.
+    ## TODO.
     pass
 
 
