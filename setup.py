@@ -18,7 +18,7 @@ setup(
     author='Chelsea Voss',
     author_email='voss.chelsea@gmail.com',
     license='GPL',
-    packages=['retroactive'],
+    packages=['retroactive', 'retroactive.basic', 'retroactive.partial', 'retroactive.full'],
     install_requires=[
     ],
     test_suite='nose.collector',

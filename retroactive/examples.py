@@ -1,8 +1,7 @@
 from full import *
 from partial import *
 from basic import *
-from partial import PartiallyRetroactiveSDPS
-from partial_dispatcher import PartiallyRetroactive
+from dispatcher import PartiallyRetroactive, FullyRetroactive
 
 def appendSix(lst):
     return lst + [6]
