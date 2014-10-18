@@ -1,6 +1,5 @@
 from basic import PriorityQueue, Deque, Queue, UnionFind, Stack, SDPS
-from full import RetroactiveDeque, RetroactiveUnionFind
-from partial import GeneralPartiallyRetroactive, PartiallyRetroactivePriorityQueue, PartiallyRetroactiveQueue, PartiallyRetroactiveSDPS
+from partial import GeneralPartiallyRetroactive, PartiallyRetroactiveQueue, PartiallyRetroactiveSDPS
 from full_retroactivity import GeneralFullyRetroactive
 
 def PartiallyRetroactive(initstate):
@@ -19,7 +18,8 @@ def PartiallyRetroactive(initstate):
     elif isinstance(initstate, Stack):
         return PartiallyRetroactive(Deque())
     elif isinstance(initstate, PriorityQueue):
-        return PartiallyRetroactivePriorityQueue(initstate)
+        ##TODO: update once PR Priority Queue is implemented
+        return GeneralPartiallyRetroactive(initstate)
     elif isinstance(initstate, UnionFind):
         return FullyRetroactive(initstate)
     else:
@@ -35,7 +35,8 @@ def FullyRetroactive(initstate):
     if isinstance(initstate, SDPS):
         return GeneralFullyRetroactive(PartiallyRetroactive(initstate))
     elif isinstance(initstate, Deque):
-        return RetroactiveDeque(initstate)
+        ##TODO: update once FR Deque is implemented
+        return GeneralFullyRetroactive(PartiallyRetroactive(initstate))
     elif isinstance(initstate, Queue):
         return FullyRetroactive(Deque())
     elif isinstance(initstate, Stack):
@@ -43,6 +44,7 @@ def FullyRetroactive(initstate):
     elif isinstance(initstate, PriorityQueue):
         return GeneralFullyRetroactive(PartiallyRetroactive(initstate))
     elif isinstance(initstate, UnionFind):
-        return RetroactiveUnionFind(initstate)
+        ##TODO: update once FR UnionFind is implemented
+        return GeneralFullyRetroactive(PartiallyRetroactive(initstate))
     else:
         return GeneralFullyRetroactive(PartiallyRetroactive(initstate))
