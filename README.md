@@ -1,5 +1,5 @@
-Fun with Time Travel:
-=====================
+Fun with Time Travel
+====================
 
 Implementing retroactive data structures in Python
 --------------------------------------------------
@@ -33,9 +33,11 @@ This implementation uses the rollback method to implement retroactivity. It stor
 Implementing this proved to be an entertaining exercise in abstraction: it needs to be able to wrap *any* data structure, and allow *any* form of operation on that data structure. So, operations are represented – and passed as input – using Python functions: an operation is any function which takes in a data structure and returns a new data structure.
 
 ### General transformation from partial to full retroactivity
-Implemented, with an O(m) overhead. (The better O(√m) implementation requires an implementation of persistence.)
+Implemented, with an O(m) overhead.
 
 This implementation stores a list of partially-retroactive data structures, applying or deleting operations from those partially-retroactive data structures when relevant. When the fully-retroactive data structure is queried, we simply query the relevant partially-retroactive data structure.
+
+The better O(√m) implementation requires an implementation of persistence.
 
 Specific Implementations
 ------------------------
@@ -130,6 +132,8 @@ Not all of the Specific Implementations have been written yet. Many of these req
 
 Also not yet written: Tests for each implementation.
 
+It would be cool to make this into a Python package.
+
 On Abstraction and Elegance
 ---------------------------
 
@@ -148,8 +152,8 @@ Example Usage
 
 To use one of these general transformations, simply initialize a Python class:
 
-    >>> x = GeneralPartiallyRetroactive([1,2,3,4,5])
-	
+    >>> x = PartiallyRetroactive([1,2,3,4,5])
+
 This creates a partially-retroactive list, initialized to [1,2,3,4,5]. We can add or remove operations in the present:
 
     >>> def appendOne(lst):
@@ -159,7 +163,7 @@ This creates a partially-retroactive list, initialized to [1,2,3,4,5]. We can ad
     >>> x.insertAgo(appendOne, tminus=0)
     >>> x.query()
     [1, 2, 3, 4, 5, 1, 1, 1]   ## Three appendOnes!
-	
+
 ...and we can add or remove operations from the past:
 
     >>> def appendSix(lst):
@@ -175,7 +179,7 @@ This creates a partially-retroactive list, initialized to [1,2,3,4,5]. We can ad
 
 Fully-retroactive data structures are similar, but permit querying into the past instead of just the present. Let us create a fully-retroactive list:
 
-    >>> y = GeneralFullyRetroactive([1,2,3])
+    >>> y = FullyRetroactive([1,2,3])
     >>> y.insertAgo(appendOne, tminus=0)
     >>> y.insertAgo(appendSix, tminus=0) ##This one should come last
     >>> y.insertAgo(appendTen, tminus=2) ##This one should come first
@@ -194,7 +198,7 @@ Looking back in time at the state of the data structures, we can see that the re
 
 In contrast, the partialy retroactive queue is used somewhat differently from either transformation, because its optimizations have the quirk of requiring times to be specified using pointers.
 
-    >>> queue = PartiallyRetroactiveQueue()
+    >>> queue = PartiallyRetroactive(Queue())
     ## INSERT enqueueings of some things
     >>> enq42 = queue.insertEnqueue(42)
     >>> enq43 = queue.insertEnqueue(43)

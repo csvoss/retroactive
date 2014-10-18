@@ -1,26 +1,3 @@
-## TODO
-## Requires an implementation of modified (a,b)-tree of Fleischer.
-
-
-## TODO
-## Requires an implementation of link-cut trees.
-
-
-## Doubly-linked list implementation
-class DLLNodeForPRQ(object):
-    def __init__(self, prev, next, val=None):
-        self.prev = prev
-        self.next = next
-        self.val = val
-        self.isBeforeF = False
-
-class DLLNodeForPRPQ(object):
-    def __init__(self, prev, next, val=None):
-        self.prev = prev
-        self.next = next
-        self.val = val
-
-
 ## BST implementation
 ## Modified from: http://github.com/laurentluce/python-algorithms/blob/master/algorithms/binary_tree.py
 class BSTNode:
