@@ -4,7 +4,11 @@ setup(
     name='retroactive',
     version='0.1',
     description='Retroactive data structures',
-    long_description="Implements algorithms for various types of retroactive data structures. Retroactive data structures allow operations to be 'retroactively' performed, affecting the history of the data structure.",
+    long_description="""Implements algorithms for various types of retroactive data structures. Retroactive data structures allow operations to be 'retroactively' performed, affecting the history of the data structure.
+
+Read the code at http://github.com/csvoss/retroactive/.
+
+Read the documentation at http://python-retroactive-data-structures.readthedocs.org/en/latest/.""",
     classifiers=[
         'Development Status :: 3 - Alpha',
         'License :: OSI Approved :: GNU General Public License (GPL)',
