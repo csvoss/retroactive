@@ -6,6 +6,7 @@ Implementing retroactive data structures in Python
 
 6.851 Advanced Data Structures. Final project. Chelsea Voss, Spring 2014.
 
+
 What is retroactivity?
 ----------------------
 
@@ -17,7 +18,59 @@ Retroactive data structures were explored in [the 2007 paper](http://erikdemaine
 
 The goal of this project is to turn known algorithms for various types of retroactive data structures into *implementations*, developing a Python library that can be imported into Python code to allow retroactive data structures to be created seamlessly.
 
+Example Usage
+-------------
+### General Partial Retroactivity
+
+To use one of these general transformations, simply initialize a Python class:
+
+    >>> x = PartiallyRetroactive([1,2,3,4,5])
+
+This creates a partially-retroactive list, initialized to [1,2,3,4,5]. We can add or remove operations in the present:
+
+    >>> def appendOne(lst):
+            return lst + [1]
+    >>> x.insertAgo(appendOne, tminus=0)
+    >>> x.insertAgo(appendOne, tminus=0)
+    >>> x.insertAgo(appendOne, tminus=0)
+    >>> x.query()
+    [1, 2, 3, 4, 5, 1, 1, 1]   ## Three appendOnes!
+
+...and we can add or remove operations from the past:
+
+    >>> def appendSix(lst):
+            return lst + [6]
+    >>> x.insertAgo(appendSix, tminus=2)   ## Insert *two* operations ago
+    >>> x.query()
+    [1, 2, 3, 4, 5, 1, 6, 1, 1]
+    >>> x.deleteAgo(tminus=3)   ## Delete the first appendOne
+	>>> x.query()
+    [1, 2, 3, 4, 5, 6, 1, 1]
+
+### General Full Retroactivity
+
+Fully-retroactive data structures are similar, but permit querying into the past instead of just the present. Let us create a fully-retroactive list:
+
+    >>> y = FullyRetroactive([1,2,3])
+    >>> y.insertAgo(appendOne, tminus=0)
+    >>> y.insertAgo(appendSix, tminus=0) ##This one should come last
+    >>> y.insertAgo(appendTen, tminus=2) ##This one should come first
+    >>> y.query()
+    [1, 2, 3, 10, 1, 6]   ## The current state of the data structure
+    >>> y.query(1)
+    [1, 2, 3, 10, 1]
+    >>> y.query(2)
+    [1, 2, 3, 10]
+    >>> y.query(3)
+    [1, 2, 3]   ## The state of the data structure way back in the past
+
+Looking back in time at the state of the data structures, we can see that the retroactive operations are taking place in the right order.
+
+Algorithms
+==========
+
 In the below runtimes, *r* is a parameter describing how far back in the past retroactive operations are allowed to occur, and *m* is the total number of retroactive updates that are ever performed on a data structure.
+
 
 General Transformations
 -----------------------
@@ -132,8 +185,6 @@ Not all of the Specific Implementations have been written yet. Many of these req
 
 Also not yet written: Tests for each implementation.
 
-It would be cool to make this into a Python package.
-
 On Abstraction and Elegance
 ---------------------------
 
@@ -145,54 +196,8 @@ Initially, I wanted to be able to unify *all* data structures under a single mec
 
 For these reasons, unifying the Specific Implementations under a single abstraction would have required adding extra options, making them more difficult for the user. For this reason, the Specific Implementations are presented as-is.
 
-Example Usage
--------------
-
-### General Partial Retroactivity
-
-To use one of these general transformations, simply initialize a Python class:
-
-    >>> x = PartiallyRetroactive([1,2,3,4,5])
-
-This creates a partially-retroactive list, initialized to [1,2,3,4,5]. We can add or remove operations in the present:
-
-    >>> def appendOne(lst):
-            return lst + [1]
-    >>> x.insertAgo(appendOne, tminus=0)
-    >>> x.insertAgo(appendOne, tminus=0)
-    >>> x.insertAgo(appendOne, tminus=0)
-    >>> x.query()
-    [1, 2, 3, 4, 5, 1, 1, 1]   ## Three appendOnes!
-
-...and we can add or remove operations from the past:
-
-    >>> def appendSix(lst):
-            return lst + [6]
-    >>> x.insertAgo(appendSix, tminus=2)   ## Insert *two* operations ago
-    >>> x.query()
-    [1, 2, 3, 4, 5, 1, 6, 1, 1]
-    >>> x.deleteAgo(tminus=3)   ## Delete the first appendOne
-	>>> x.query()
-    [1, 2, 3, 4, 5, 6, 1, 1]
-
-### General Full Retroactivity
-
-Fully-retroactive data structures are similar, but permit querying into the past instead of just the present. Let us create a fully-retroactive list:
-
-    >>> y = FullyRetroactive([1,2,3])
-    >>> y.insertAgo(appendOne, tminus=0)
-    >>> y.insertAgo(appendSix, tminus=0) ##This one should come last
-    >>> y.insertAgo(appendTen, tminus=2) ##This one should come first
-    >>> y.query()
-    [1, 2, 3, 10, 1, 6]   ## The current state of the data structure
-    >>> y.query(1)
-    [1, 2, 3, 10, 1]
-    >>> y.query(2)
-    [1, 2, 3, 10]
-    >>> y.query(3)
-    [1, 2, 3]   ## The state of the data structure way back in the past
-
-Looking back in time at the state of the data structures, we can see that the retroactive operations are taking place in the right order.
+Additional Examples
+-------------------
 
 ### Partially Retroactive Queue
 
