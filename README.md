@@ -17,18 +17,19 @@ The goal of this project is to turn known algorithms for various types of retroa
 
 Summary
 -------
-What was implemented:
 
-* General transformations for any data structure:
+What has been implemented:
+
+* **General transformations** for any data structure
     * Non-retroactive to partially retroactive, O(r) overhead
 	* Partially retroactive to fully retroactive, O(m) overhead
 
-* Queue:
+* Retroactive **Queue**
     * Non-retroactive
     * Partially retroactive, O(1) overhead
 	* Fully retroactive, O(m) overhead
 
-* Searchable, Dynamic Partial Sums:
+* Retroactive Searchable, Dynamic Partial Sums (**SDPS**)
     * Non-retroactive
 	* Partially retroactive, O(1) overhead
 	* Fully retroactive, O(m) overhead
@@ -108,4 +109,4 @@ Read the documentation at [Read The Docs](http://python-retroactive-data-structu
 
 Download the package at [PyPI](https://pypi.python.org/pypi/retroactive/).
 
-Wikipedia: [Retroactive data structures](https://en.wikipedia.org/wiki/Retroactive_data_structures)
+Wikipedia: [Retroactive data structures](https://en.wikipedia.org/wiki/Retroactive_data_structures).
