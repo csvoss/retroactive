@@ -5,6 +5,16 @@ class DLLNodeForPRQ(object):
         self.val = val
         self.isBeforeF = False
 
+class TimePointer(object):
+    def __init__(self, pointer, wasEnqueue):
+        """
+        a tuple: first element -- pointer to new node in list
+                 second element -- whether or not the operation
+                                   was an enqueue operation
+        """
+        self.pointer = pointer
+        self.wasEnqueue = wasEnqueue
+
 class PartiallyRetroactiveQueue(object):
 
     def __init__(self):
@@ -24,16 +34,17 @@ class PartiallyRetroactiveQueue(object):
         else:
             return None
 
-    def insertEnqueue(self, val, tPtr=None):
+    def insertEnqueue(self, val, before=None):
         """
         val :: data
-        tPtr :: represents the operation that occurs just AFTER
-                the time when you want to insert this enqueue at.
-        return :: a tPtr for this enqueue, for possible future use.
-            a tuple: first element -- pointer to new node in list
-                     second element -- whether or not the operation
-                                       was an enqueue operation
+        before :: TimePointer.
+                  Represents the operation that occurs just AFTER
+                  the time when you want to insert this enqueue at.
+                  That is, you're inserting this operation BEFORe that one.
+        return :: TimePointer. For this enqueue, for possible future use.
         """
+        if before is not None:
+            assert isinstance(before, TimePointer)
 
         if not self.init:
             node = DLLNodeForPRQ(None, None, val)
@@ -41,9 +52,9 @@ class PartiallyRetroactiveQueue(object):
             self.F = node
             node.isBeforeF = True
             self.init = True
-            return (node, True)
+            return TimePointer(node, True)
         
-        if tPtr == None:
+        if before == None:
             ## insert at t=now
             ## --> enqueue at back of list
             ## create a new node
@@ -52,11 +63,11 @@ class PartiallyRetroactiveQueue(object):
             self.B.next = node
             ## update B
             self.B = node
-            return (node, True)
+            return TimePointer(node, True)
 
         else:
             ## unpack tPtr
-            tPtr, isEnq = tPtr
+            tPtr = before.pointer
             ## create a new node
             ## insert the new node just prev to tPtr
             node = DLLNodeForPRQ(tPtr.prev, tPtr, val)
@@ -68,18 +79,34 @@ class PartiallyRetroactiveQueue(object):
             if tPtr.isBeforeF:
                 self.F.isBeforeF = False
                 self.F = self.F.prev
-            return (node, True)
+            return TimePointer(node, True)
 
-    def insertDequeue(self, tPtr=None):
+    def insertDequeue(self, before=None):
         ## same procedure, retroactive or not
         ## --> tPtr does not matter
-        self.F = self.F.next
-        self.F.isBeforeF = True
-        return (self.F, False)
+        if before is not None:
+            assert isinstance(before, TimePointer)
+            
+        if self.F is None and self.B is None:
+            self.init = False
+            return TimePointer(self.F, False)
+            
 
-    def delete(self, tPtr):
+        self.F = self.F.next
+        if self.F is not None:
+            self.F.isBeforeF = True
+        else:
+            self.B = None
+            self.init = False
+        return TimePointer(self.F, False)
+
+    def delete(self, time):
+        """
+        Delete the retroactive operation at `time`.
+        time :: TimePointer.
+        """
         ## unpack tPtr
-        tPtr, isEnq = tPtr
+        tPtr, isEnq = (time.pointer, time.wasEnqueue)
         if isEnq:
             ## removing an enqueue
             ## delete it from the list
