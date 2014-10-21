@@ -1,9 +1,0 @@
-site_name: Python Retroactive Data Structures
-pages:
-- ["whatisretroactivity.md", "What is retroactivity?"]
-- ["examples.md", "Examples"]
-- ["basics/index.md", "Basic Building Blocks"]
-- ["specifics/index.md", "Specific Implementations"]
-- ["general/index.md", "General Transformations"]
-- ["futuredevelopments.md", "Future Developments"]
-- ["references.md", "References"]

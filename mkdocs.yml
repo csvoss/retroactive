@@ -1,0 +1,24 @@
+site_name: Python Retroactive Data Structures
+site_description: 'Fun with time travel: implementing retroactive data structures in Python'
+
+repo_url: http://github.com/csvoss/retroactive/tree/master/docs
+repo_name: GitHub
+
+site_author: Chelsea Voss, Massachusetts Institute of Technology
+
+pages:
+- ["index.md", "Overview"]
+- ["whatisretroactivity.md", "What is Retroactivity?"]
+- ["examples.md", "Examples"]
+
+- ['basics/index.md', "Basic Building Blocks"]
+
+- ['specifics-index.md', "Specific Implementations", "Overview"]
+- ['deque.md', "Specific Implementations", "Deque"]
+
+- ['general/index.md', "General Transformations"]
+
+- ["futuredevelopments.md", "Future Developments"]
+- ["references.md", "References"]
+
+theme: readthedocs
