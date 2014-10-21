@@ -1,0 +1,6 @@
+site_name: Python Retroactive Data Structures
+pages:
+- ["index.md", "Overview"]
+- ["basics/index.md", "Basic Building Blocks"]
+- ["specifics/index.md", "Specific Implementations"]
+- ["

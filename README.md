@@ -107,3 +107,5 @@ Read More
 Read the documentation at [Read The Docs](http://python-retroactive-data-structures.readthedocs.org/en/latest/).
 
 Download the package at [PyPI](https://pypi.python.org/pypi/retroactive/).
+
+Wikipedia: [Retroactive data structures](https://en.wikipedia.org/wiki/Retroactive_data_structures)
