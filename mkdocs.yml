@@ -7,16 +7,13 @@ repo_name: GitHub
 site_author: Chelsea Voss, Massachusetts Institute of Technology
 
 pages:
-- ["index.md", "Overview"]
-- ["whatisretroactivity.md", "What is Retroactivity?"]
+- ["index.md", Home]
+- ["whatisretroactivity.md", "What is retroactivity?"]
 - ["examples.md", "Examples"]
 
-- ['basics/index.md', "Basic Building Blocks"]
-
-- ['specifics-index.md', "Overview", "Specific Implementations"]
-- ['deque.md', "Deque", "Specific Implementations"]
-
-- ['general/index.md', "General Transformations"]
+- ['general.md', "General Transformations"]
+- ['specifics.md', "Specific Implementations"]
+- ['basics.md', "Basic Building Blocks"]
 
 - ["futuredevelopments.md", "Future Developments"]
 - ["references.md", "References"]
