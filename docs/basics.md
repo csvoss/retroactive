@@ -1,5 +1,5 @@
- Basic Building Blocks
----------------------
+Basic Building Blocks
+=====================
 
 Many of the data structures mentioned in Demaine et al 2007 require, as a prerequisite, the implementation of more basic building blocks.
 

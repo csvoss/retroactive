@@ -1,5 +1,5 @@
 Future Developments
--------------------
+===================
 Not all of the Specific Implementations have been written yet. Many of these require an implementation of the above basic building blocks before they can be constructed:
 
 * **Fully-Retroactive Deque**

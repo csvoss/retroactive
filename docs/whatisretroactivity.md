@@ -1,5 +1,5 @@
 What is retroactivity?
-----------------------
+======================
 
 Unlike normal data structures, which only allow operations to be carried out in the present, **retroactive data structures** allow operations to be inserted or deleted at any point in the past.
 
