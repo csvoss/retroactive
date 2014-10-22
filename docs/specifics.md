@@ -1,9 +1,10 @@
 Specific Implementations
-------------------------
+========================
 
 *Specific implementations* are methods for taking certain data structures and converting them into retroactive data structures, using specific strategies outlined in Demaine et al 2007 in order to optimize for speed.
 
-### Queue
+Queue
+-----
 
 A queue permits `enqueue` and `dequeue` operations on an ordered collection of data.
 
@@ -19,31 +20,36 @@ Unlike the other retroactive data structures, this data structure has a few quir
 
 A better fully retroactive solution exists, which is O(log m) but O(1) for present-time operations. This requires an implementation of order-statistic trees (Cormen et al, 2001).
 
-### Stack
+Stack
+-----
 
 **Partial retroactivity**, O(log m): See *Deque*.
 
 **Full retroactivity**, O(log m): See *Deque*.
 
-### Deque
+Deque
+-----
 
 **Partial retroactivity**, O(log m): Implied by fully retroactive solution.
 
 **Full retroactivity**, O(log m). Requires an implementation of modified (a,b)-trees.
 
-### Union-Find
+Union-Find
+----------
 
 **Partial retroactivity**, O(log m): Implied by fully retroactive solution.
 
 **Full retroactivity**, O(log m). Requires an implementation of link-cut trees.
 
-### Priority Queue
+Priority Queue
+--------------
 
 **Partial retroactivity**, O(log m). Requires an implementation of modified (a,b)-trees.
 
 **Full retroactivity**: Use the *General Transformation* from partial to full.
 
-### Searchable, Dynamic Partial Sums
+Searchable, Dynamic Partial Sums
+--------------------------------
 
 A searchable, dynamic partial sums (SDPS) data structure stores a sequence of numbers, and permits appending numbers at the end, computing the overall sum, or searching for the earliest point at which the sum exceeds a given threshold.
 
