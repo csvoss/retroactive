@@ -1,6 +1,6 @@
 ﻿from retroactive.basic import LinkCutTree
 class RetroactiveUnionFind(object):
-    """description of class"""
+    """Fully retroactive union find implemented usinf link-cut trees to represented disjoint forests"""
     def __init__(self):
         self.forest = LinkCutTree()
         self.time = 0
