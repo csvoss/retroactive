@@ -9,7 +9,7 @@
         # there can only be a represented edge between two nodes if one is the in order successor of the other 
         self.represented_parent = None
         # stores the edge weight to the parent, since this is a tree this is enough to represent all edges uniquely
-        self.parent_edge_weight = -1
+        self.parent_edge_weight = float("inf")
         
         
     def inOrder(self, fn):
@@ -20,9 +20,7 @@
                 
         if self.right is not None:
             self.right.inOrder(fn)
-            
-    def printInOrder(self, fn):
-        self.in_order(lambda x : print (x))
+
     
     def addLeft (self, other):
         self.left = other
