@@ -1,7 +1,7 @@
-from full import RetroactiveUnionFind
-from retroactive.basic import PriorityQueue, Deque, Queue, UnionFind, Stack, SDPS
+from basic import PriorityQueue, Deque, Queue, UnionFind, Stack, SDPS
 from partial import GeneralPartiallyRetroactive, PartiallyRetroactiveQueue, PartiallyRetroactiveSDPS
 from full_retroactivity import GeneralFullyRetroactive
+from retroactive.full import RetroactiveUnionFind
 
 
 def PartiallyRetroactive(initstate):

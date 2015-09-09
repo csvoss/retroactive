@@ -1,5 +1,5 @@
 ﻿import unittest
-from link_cut_tree import LinkCutTree
+from retroactive.basic import LinkCutTree
 
 class test_link_cut(unittest.TestCase):
     

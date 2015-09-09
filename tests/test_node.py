@@ -1,5 +1,5 @@
 ﻿import unittest
-from splay_tree import SplayNode
+from retroactive.basic import SplayNode
 
 class NodeTest(unittest.TestCase):
     def test_left_zigzig_splay(self):
