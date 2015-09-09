@@ -1,6 +1,8 @@
-from basic import PriorityQueue, Deque, Queue, UnionFind, Stack, SDPS
+from full import RetroactiveUnionFind
+from retroactive.basic import PriorityQueue, Deque, Queue, UnionFind, Stack, SDPS
 from partial import GeneralPartiallyRetroactive, PartiallyRetroactiveQueue, PartiallyRetroactiveSDPS
 from full_retroactivity import GeneralFullyRetroactive
+
 
 def PartiallyRetroactive(initstate):
     """
@@ -44,7 +46,6 @@ def FullyRetroactive(initstate):
     elif isinstance(initstate, PriorityQueue):
         return GeneralFullyRetroactive(PartiallyRetroactive(initstate))
     elif isinstance(initstate, UnionFind):
-        ##TODO: update once FR UnionFind is implemented
-        return GeneralFullyRetroactive(PartiallyRetroactive(initstate))
+        return RetroactiveUnionFind()
     else:
         return GeneralFullyRetroactive(PartiallyRetroactive(initstate))
