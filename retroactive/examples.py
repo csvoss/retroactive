@@ -73,14 +73,18 @@ def testPartiallyRetroactiveSDPS():
 
 def testFullyRetroActiveUnionFind():
     x = RetroactiveUnionFind()
+    # union a and b at the current time
     x.unionAgo('a','b')
     assert x.sameSetAgo('a', 'b', -2) == False
+
+    # union a and b two steps earlier
     x.unionAgo('a', 'b' ,-2)
     assert x.sameSetAgo('a', 'b', -3) == True
 
     x.unionAgo('c','d')
     assert x.sameSetAgo('b', 'd') == False
 
+    # union a and c before all other unions
     x.unionAgo('a','c',-10)
     assert  x.sameSetAgo('b', 'd',-9) == False
     assert  x.sameSetAgo('b','d', 0) == True
