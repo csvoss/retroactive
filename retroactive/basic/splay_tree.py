@@ -33,6 +33,7 @@
     def isRoot(self):
         return (self.parent == None or (self.parent.left != self and self.parent.right != self))
 
+    # copied from http://stevekrenzel.com/articles/printing-trees
     def __str__(self, depth=0):
         ret = ""
 

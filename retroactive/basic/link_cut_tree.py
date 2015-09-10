@@ -76,6 +76,7 @@ class LinkCutTree(object):
             self.nodes[data] = new_node
             return new_node
 
+    # makeRoot(node) flips the path from node to its root, inverting the path and making it a child path of node. All other connections are preserved.
     def makeRoot(self, node):
         self.access(node)
         flipped = None

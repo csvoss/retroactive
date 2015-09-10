@@ -1,6 +1,6 @@
 ﻿from retroactive.basic import LinkCutTree
 class RetroactiveUnionFind(object):
-    """Fully retroactive union find implemented usinf link-cut trees to represented disjoint forests"""
+    """Fully retroactive union find implemented using link-cut trees to represented disjoint forests"""
     def __init__(self):
         self.forest = LinkCutTree()
         self.time = 0
@@ -24,7 +24,9 @@ class RetroactiveUnionFind(object):
             b = self.forest.makeTree(b_data)
 
         
-        # if the nodes are not connected at all, connect them. If they are connected at a later time, cut the oldest edge on the path between the two nodes, make the union'ed node the root of that tree and attach it to the other unioned node.
+        # if the nodes are not connected at all, connect them. If they are connected at a later time,
+        # cut the oldest edge on the path between the two nodes, make the union'ed node the root of that tree
+        # and attach it to the other union'ed node.
         if self.forest.getRoot(a) != self.forest.getRoot(b):
             self.forest.makeRoot(b)
             self.forest.link(a,b,union_time)
@@ -48,8 +50,10 @@ class RetroactiveUnionFind(object):
                 self.forest.link(a,b,union_time)
         self.time += 1
 
-    # sameSetAgo(a,b,t) will find the lca of a and b and traverse the path from both to the lca, finding the largest edge on the path between a and b. If any edge is larger than time + tdelta then a, and b were not
-    # connected at (time + tdelta)
+    # sameSetAgo(a,b,t) will find the lca of a and b and traverse the path from both to the lca,
+    # finding and cutting the largest edge on the path between a and b. This preserves old unions because any edge below
+    # the cut edge will now follow a path through the a-b edge up to the lca, which is guaranteed not to have an
+    # edge value greater than the cut edge. Any edge above the cut edge will not be affected.
     def sameSetAgo(self, a_data, b_data, tdelta = 0):
         # sameset is reflexive
         if a_data == b_data:
@@ -74,7 +78,7 @@ class RetroactiveUnionFind(object):
         
         return True
 
-    # sameSetWhen(a,b) traverses the path between a and b and return the largest edge, which is the time at which a and b were connected.
+    # sameSetWhen(a,b) traverses the path between a and b and returns the largest edge, which is the time at which a and b were connected.
     def sameSetWhen(self, a, b):
         lca = self.forest.lca(a,b)
         if lca is None:
