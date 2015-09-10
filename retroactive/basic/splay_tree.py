@@ -128,5 +128,6 @@
                         self.rotateLeft()
 
                 else:
-                    # this should never be thrown since a node without a grandparent should be caught in the first if statement in the loop (self.parent.isRoot())
+                    # this should never be thrown since a node without a grandparent should be caught
+                    # in the first if statement in the loop (self.parent.isRoot())
                     raise Exception("Splay: grandparent is not attached to parent")
