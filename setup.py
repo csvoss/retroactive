@@ -23,7 +23,7 @@ Read the documentation at ReadTheDocs_.
     keywords='retroactive data structures retroactivity datastructures persistence algorithms queue deque union-find stack priority-queue',
     url='http://github.com/csvoss/retroactive',
     author='Chelsea Voss',
-    author_email='voss.chelsea@gmail.com',
+    author_email='csvoss@mit.edu',
     license='GPL',
     packages=['retroactive', 'retroactive.basic', 'retroactive.partial', 'retroactive.full'],
     install_requires=[
