@@ -62,7 +62,7 @@ Looking back in time at the state of the data structures, we can see that the re
 Partially Retroactive Queue
 ---------------------------
 
-In contrast, the partialy retroactive queue is used somewhat differently from either transformation, because its optimizations have the quirk of requiring times to be specified using pointers.
+In contrast, the partially retroactive queue is used somewhat differently from either transformation, because its optimizations have the quirk of requiring times to be specified using pointers.
 
     >>> queue = PartiallyRetroactive(Queue())
 	
